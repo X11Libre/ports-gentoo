@@ -8,5 +8,5 @@ inherit xlibre
 
 DESCRIPTION="Elographics input driver"
 if [[ ${PV} != 9999* ]]; then
-	KEYWORDS="~amd64"
+	KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~loong ~ppc ~ppc64 ~sparc ~x86"
 fi

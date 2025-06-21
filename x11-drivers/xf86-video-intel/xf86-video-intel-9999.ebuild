@@ -9,7 +9,7 @@ XLIBRE_EAUTORECONF=yes
 inherit linux-info xlibre flag-o-matic
 
 if [[ ${PV} != 9999* ]]; then
-	KEYWORDS="~amd64"
+	KEYWORDS="~amd64 ~x86"
 fi
 
 DESCRIPTION="XLibre driver for Intel cards"

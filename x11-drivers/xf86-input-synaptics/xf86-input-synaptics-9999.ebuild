@@ -8,7 +8,7 @@ inherit linux-info xlibre
 
 DESCRIPTION="Driver for Synaptics touchpads"
 if [[ ${PV} != 9999* ]]; then
-	KEYWORDS="~amd64"
+	KEYWORDS="~amd64 ~arm ~arm64 ~loong ~mips ~ppc ~ppc64 ~x86"
 fi
 
 RDEPEND="

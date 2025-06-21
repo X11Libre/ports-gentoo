@@ -8,5 +8,5 @@ inherit xlibre
 
 DESCRIPTION="XLibre driver for ASpeedTech cards"
 if [[ ${PV} != 9999* ]]; then
-	KEYWORDS="~amd64"
+	KEYWORDS="~amd64 ~loong ~ppc ~ppc64 ~x86"
 fi

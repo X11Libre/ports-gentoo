@@ -13,7 +13,7 @@ HOMEPAGE="
 	https://github.com/X11Libre/xf86-video-nouveau
 "
 if [[ ${PV} != 9999* ]]; then
-	KEYWORDS="~amd64"
+	KEYWORDS="~amd64 ~arm64 ~loong ~ppc ~ppc64 ~riscv ~x86"
 fi
 
 RDEPEND=">=x11-libs/libdrm-2.4.60[video_cards_nouveau]

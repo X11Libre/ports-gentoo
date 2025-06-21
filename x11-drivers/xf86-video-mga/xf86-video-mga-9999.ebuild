@@ -8,7 +8,7 @@ inherit xlibre
 
 DESCRIPTION="Matrox video driver"
 if [[ ${PV} != 9999* ]]; then
-	KEYWORDS="~amd64"
+	KEYWORDS="~alpha ~amd64 ~loong ~ppc ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux"
 fi
 
 src_configure() {

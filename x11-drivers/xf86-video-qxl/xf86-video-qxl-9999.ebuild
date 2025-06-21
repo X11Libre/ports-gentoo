@@ -9,7 +9,7 @@ inherit python-single-r1 xlibre
 
 DESCRIPTION="QEMU QXL paravirt video driver"
 if [[ ${PV} != 9999* ]]; then
-	KEYWORDS="~amd64"
+	KEYWORDS="~amd64 ~loong ~x86"
 fi
 IUSE="xspice"
 REQUIRED_USE="xspice? ( ${PYTHON_REQUIRED_USE} )"

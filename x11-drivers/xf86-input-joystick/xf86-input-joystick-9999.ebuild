@@ -8,7 +8,7 @@ inherit xlibre
 
 DESCRIPTION="XLibre driver for joystick input devices"
 if [[ ${PV} != 9999* ]]; then
-	KEYWORDS="~amd64"
+	KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~loong ~m68k ~ppc ~ppc64 ~sparc ~x86"
 fi
 
 src_install() {

@@ -7,7 +7,7 @@ inherit udev xlibre
 
 DESCRIPTION="VMWare mouse input driver"
 if [[ ${PV} != 9999* ]]; then
-	KEYWORDS="~amd64"
+	KEYWORDS="~amd64 ~x86"
 fi
 
 DEPEND="x11-base/xorg-proto"

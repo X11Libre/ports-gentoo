@@ -8,7 +8,7 @@ inherit linux-info xlibre
 
 DESCRIPTION="Generic VESA video driver"
 if [[ ${PV} != 9999* ]]; then
-	KEYWORDS="~amd64"
+	KEYWORDS="-* ~alpha ~amd64 ~x86"
 fi
 
 pkg_pretend() {

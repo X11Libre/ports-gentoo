@@ -9,7 +9,7 @@ inherit xlibre
 
 DESCRIPTION="VMware SVGA video driver"
 if [[ ${PV} != 9999* ]]; then
-	KEYWORDS="~amd64"
+	KEYWORDS="~amd64 ~arm64 ~x86"
 fi
 
 RDEPEND="

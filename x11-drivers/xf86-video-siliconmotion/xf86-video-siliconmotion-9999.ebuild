@@ -8,5 +8,5 @@ inherit xlibre
 
 DESCRIPTION="Silicon Motion video driver"
 if [[ ${PV} != 9999* ]]; then
-	KEYWORDS="~amd64"
+	KEYWORDS="~amd64 ~mips ~x86"
 fi

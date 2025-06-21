@@ -8,7 +8,7 @@ inherit linux-info xlibre
 
 DESCRIPTION="XLibre input driver based on libinput"
 if [[ ${PV} != 9999* ]]; then
-	KEYWORDS="~amd64"
+	KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~loong ~m68k ~mips ~ppc ~ppc64 ~riscv ~s390 ~sparc ~x86"
 fi
 
 RDEPEND=">=dev-libs/libinput-1.23.0:0="

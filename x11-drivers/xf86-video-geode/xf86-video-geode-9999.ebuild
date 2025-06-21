@@ -8,7 +8,7 @@ inherit xlibre
 
 DESCRIPTION="AMD Geode GX and LX graphics driver"
 if [[ ${PV} != 9999* ]]; then
-	KEYWORDS="~amd64"
+	KEYWORDS="~x86"
 fi
 IUSE="ztv"
 
