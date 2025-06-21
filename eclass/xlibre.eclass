@@ -78,7 +78,7 @@ unset FONT_ECLASS GIT_ECLASS
 # @DESCRIPTION:
 # Set up SRC_URI for individual modular releases. If set to an empty
 # string, no SRC_URI will be provided by the eclass.
-: "${XLIBRE_BASE_INDIVIDUAL_URI="https://github.com/X11Libre/${PN}/releases/FIXME"}"
+: "${XLIBRE_BASE_INDIVIDUAL_URI="https://github.com/X11Libre"}"
 
 # @ECLASS_VARIABLE: XLIBRE_MODULE
 # @PRE_INHERIT
@@ -115,13 +115,17 @@ HOMEPAGE="https://github.com/X11Libre/${XLIBRE_MODULE}${XLIBRE_PACKAGE_NAME}"
 # @ECLASS_VARIABLE: XLIBRE_TARBALL_SUFFIX
 # @PRE_INHERIT
 # @DESCRIPTION:
-# Most X11 projects provide tarballs as tar.xz. This eclass defaults to xz.
-: "${XLIBRE_TARBALL_SUFFIX:="xz"}"
+# Most Xlibre projects provide tarballs as tar.gz. This eclass defaults to gz.
+: "${XLIBRE_TARBALL_SUFFIX:="gz"}"
 
 if [[ ${PV} == *9999* ]]; then
 	: "${EGIT_REPO_URI:="https://github.com/X11Libre/${XLIBRE_MODULE}${XLIBRE_PACKAGE_NAME}.git"}"
 elif [[ -n ${XLIBRE_BASE_INDIVIDUAL_URI} ]]; then
-	SRC_URI="${XLIBRE_BASE_INDIVIDUAL_URI}/${XLIBRE_MODULE}${P}.tar.${XLIBRE_TARBALL_SUFFIX}"
+	if [[ ${PN} == "xlibre-server" ]]; then
+		SRC_URI="${XLIBRE_BASE_INDIVIDUAL_URI}/xserver/archive/refs/tags/xlibre-xserver-${PV}.tar.${XLIBRE_TARBALL_SUFFIX}"
+	else
+		SRC_URI="${XLIBRE_BASE_INDIVIDUAL_URI}/${P}/archive/refs/tags/xlibre-${P}-${PV}.tar.${XLIBRE_TARBALL_SUFFIX}"
+	fi
 fi
 
 : "${SLOT:=0}"
