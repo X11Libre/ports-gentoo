@@ -6,6 +6,8 @@ XLIBRE_DRI="always"
 
 inherit xlibre
 
+EGIT_BRANCH="master"
+
 if [[ ${PV} != 9999* ]]; then
 	KEYWORDS="~amd64 ~arm64 ~loong ~ppc64 ~riscv ~x86"
 fi
