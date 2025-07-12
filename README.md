@@ -38,10 +38,10 @@ installing `x11-base/xlibre-server` and the `x11-base/xorg-server::xlibre` dummy
 
 ## Using the overlay
 
-Right now there is no released version of XLibre Xserver. To use the XLibre [live ebuilds](https://wiki.gentoo.org/wiki/Live_ebuilds), add the following lines to your [`/etc/portage/package.accept_keywords`](https://wiki.gentoo.org/wiki//etc/portage/package.accept_keywords) file:
+Right now there is no released version of XLibre DDX drivers. To use the them [live ebuilds](https://wiki.gentoo.org/wiki/Live_ebuilds), add the following line to your [`/etc/portage/package.accept_keywords`](https://wiki.gentoo.org/wiki//etc/portage/package.accept_keywords) file:
 
 ```
-*/*::xlibre **
+x11-drivers/*::xlibre **
 ```
 
 **Or** for the individual packages:
@@ -74,6 +74,24 @@ x11-drivers/xf86-video-r128 **
 x11-drivers/xf86-video-siliconmotion **
 x11-drivers/xf86-video-vesa **
 x11-drivers/xf86-video-vmware **
+```
+
+As of writing this, the ddx drivers for Xorg, from the gentoo tree, also work with Xlibre, with the exception of xf86-video-intel.
+
+To use that, you need to add `x11-drivers/xf86-video-intel **` to you package.accept_keywords.
+
+The Xlibre X server has had multiple releases, but if you want the latest patches, you have to add it to package.accept_keyboards and use the live ebuild.
+
+You can do that by adding the following lines to your package.accept_keywords:
+```
+x11-base/xlibre-drivers **
+x11-base/xlibre-server **
+x11-base/xorg-server **
+```
+
+If you want to use live ebuilds for everything in this overlay, you can do so by adding just this single line to your package.accept_keywords, ignoring everything above:
+```
+x11-drivers/*::xlibre **
 ```
 
 If `/etc/portage/package.accept_keywords` is a directory, then create a file like `/etc/portage/package.accept_keywords/xlibre` containing one of the above blocks.
