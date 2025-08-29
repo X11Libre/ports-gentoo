@@ -14,7 +14,7 @@ if [[ ${PV} != 9999* ]]; then
 fi
 
 IUSE_SERVERS="xephyr xnest xorg xvfb"
-IUSE="${IUSE_SERVERS} debug +elogind minimal selinux suid systemd test +udev unwind xcsecurity"
+IUSE="${IUSE_SERVERS} debug +elogind minimal selinux suid systemd test +udev unwind xcsecurity xinerama"
 RESTRICT="!test? ( test )"
 
-DEPEND="x11-base/xlibre-server:${SLOT}[xephyr=,xnest=,xorg=,xvfb=,debug=,elogind=,minimal=,selinux=,suid=,systemd=,test=,udev=,unwind=,xcsecurity=]"
+DEPEND="x11-base/xlibre-server:${SLOT}[xephyr=,xnest=,xorg=,xvfb=,debug=,elogind=,minimal=,selinux=,suid=,systemd=,test=,udev=,unwind=,xcsecurity=,xinerama=]"
