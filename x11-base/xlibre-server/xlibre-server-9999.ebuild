@@ -193,6 +193,9 @@ src_install() {
 	ln -rsf "${ED}"/usr/$(get_libdir)/xorg/modules/xlibre-25.0/input "${ED}"/usr/$(get_libdir)/xorg/modules/input
 	ln -rsf "${ED}"/usr/$(get_libdir)/xorg/modules/xlibre-25.0/extensions "${ED}"/usr/$(get_libdir)/xorg/modules/extensions
 
+	# This is a security-sensitive file
+	chmod o-r  "${ED}"/usr/$(get_libdir)/xorg/protocol.txt
+
 	ewarn "If this is the first time you installed xlibre, you have to emerge @x11-module-rebuild"
 }
 
