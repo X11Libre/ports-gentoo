@@ -16,7 +16,7 @@ if [[ ${PV} != 9999* ]]; then
 fi
 
 IUSE_SERVERS="xephyr xnest xorg xvfb"
-IUSE="${IUSE_SERVERS} debug +elogind minimal selinux suid systemd test +udev unwind xcsecurity"
+IUSE="${IUSE_SERVERS} debug +elogind minimal selinux suid systemd test +udev unwind xcsecurity +xinerama"
 RESTRICT="!test? ( test )"
 
 CDEPEND="
@@ -127,6 +127,7 @@ src_configure() {
 		$(meson_use xcsecurity)
 		$(meson_use selinux xselinux)
 		$(meson_use xephyr)
+		$(meson_use xinerama)
 		$(meson_use xnest)
 		$(meson_use xorg)
 		$(meson_use xvfb)
@@ -178,11 +179,6 @@ src_install() {
 	# install the @x11-module-rebuild set for Portage
 	insinto /usr/share/portage/config/sets
 	newins "${FILESDIR}"/xlibre-sets.conf xlibre.conf
-
-	# Create these in case they weren't already installed
-	keepdir /usr/$(get_libdir)/xorg/modules/xlibre-25.0/drivers
-	keepdir /usr/$(get_libdir)/xorg/modules/xlibre-25.0/input
-	keepdir /usr/$(get_libdir)/xorg/modules/xlibre-25.0/extensions
 
 	ewarn "If this is the first time you installed xlibre, you have to emerge @x11-module-rebuild"
 }
