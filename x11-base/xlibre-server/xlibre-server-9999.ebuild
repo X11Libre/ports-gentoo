@@ -16,7 +16,8 @@ if [[ ${PV} != 9999* ]]; then
 fi
 
 IUSE_SERVERS="xephyr xfbdev xnest xorg xvfb"
-IUSE="${IUSE_SERVERS} debug +elogind minimal selinux suid systemd test +udev unwind xcsecurity +xinerama"
+IUSE_EXTENSIONS="xcsecurity +xinerama +glx"
+IUSE="${IUSE_SERVERS} ${IUSE_EXTENSIONS} debug +elogind minimal selinux suid systemd test +udev unwind"
 RESTRICT="!test? ( test )"
 
 CDEPEND="
@@ -117,7 +118,7 @@ src_configure() {
 		$(meson_use !minimal dri2)
 		$(meson_use !minimal dri3)
 		$(meson_use !minimal glamor)
-		$(meson_use !minimal glx)
+		$(meson_use glx)
 		$(meson_use udev)
 		$(meson_use udev udev_kms)
 		$(meson_use unwind libunwind)
