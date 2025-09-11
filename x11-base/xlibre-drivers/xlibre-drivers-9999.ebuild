@@ -84,7 +84,10 @@ PDEPEND="
 	video_cards_nouveau?       ( >=x11-drivers/xf86-video-nouveau-1.0.13 )
 	video_cards_omap?          ( >=x11-drivers/xf86-video-omap-0.4.5 )
 	video_cards_qxl?           ( x11-drivers/xf86-video-qxl )
-	video_cards_nvidia?        ( x11-drivers/nvidia-drivers )
+	video_cards_nvidia?        (
+								 >=x11-base/xlibre-server-${PV}[xinerama]
+								 x11-drivers/nvidia-drivers
+							   )
 	video_cards_r128?          ( >=x11-drivers/xf86-video-r128-6.10.2 )
 	video_cards_radeon?        ( >=x11-drivers/xf86-video-ati-18.0.1-r1 )
 	video_cards_radeonsi?      ( >=x11-drivers/xf86-video-ati-18.0.1-r1 )
