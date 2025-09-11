@@ -185,6 +185,9 @@ src_install() {
 	insinto /usr/share/portage/config/sets
 	newins "${FILESDIR}"/xlibre-sets.conf xlibre.conf
 
+	# This is a security-sensitive file
+	chmod o-r  "${ED}"/usr/$(get_libdir)/xorg/protocol.txt
+
 	ewarn "If this is the first time you installed xlibre, you have to emerge @x11-module-rebuild"
 }
 
