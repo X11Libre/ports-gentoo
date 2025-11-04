@@ -95,10 +95,6 @@ REQUIRED_USE="!minimal? (
 	elogind? ( udev )
 	?? ( elogind systemd )"
 
-PATCHES=(
-	"${UPSTREAMED_PATCHES[@]}"
-	"${FILESDIR}"/${PN}-1.12-unloadsubmodule.patch
-)
 
 src_configure() {
 	# bug #835653
