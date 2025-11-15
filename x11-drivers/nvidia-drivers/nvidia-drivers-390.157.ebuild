@@ -100,6 +100,8 @@ PATCHES=(
 	"${FILESDIR}"/nvidia-390-aur-patches/011-nvidia-390xx-kernel-6.13.patch
 	"${FILESDIR}"/nvidia-390-aur-patches/012-nvidia-390xx-kernel-6.14.patch
 	"${FILESDIR}"/nvidia-390-aur-patches/013-nvidia-390xx-kernel-6.15.patch
+	"${FILESDIR}"/nvidia-390-aur-patches/014-nvidia-390xx-kernel-6.8-repotline.patch
+	"${FILESDIR}"/nvidia-390-aur-patches/015-nvidia-390xx-kernel-6.17.patch
 )
 
 pkg_setup() {
