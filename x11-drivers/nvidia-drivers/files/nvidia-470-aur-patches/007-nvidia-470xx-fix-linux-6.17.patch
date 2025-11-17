@@ -1,0 +1,78 @@
+--- a/kernel/nvidia-drm/nvidia-drm-drv.c	2025-10-31 12:31:45.667473354 +0200
++++ b/kernel/nvidia-drm/nvidia-drm-drv.c	2025-10-31 12:36:00.274484304 +0200
+@@ -140,6 +140,10 @@
+ static struct drm_framebuffer *nv_drm_framebuffer_create(
+     struct drm_device *dev,
+     struct drm_file *file,
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(6, 17, 0)
++    // Rel. commit. "drm: Pass the format info to .fb_create()" (Ville Syrjälä, 1 Jul 2025)
++    const struct drm_format_info *info,
++#endif
+     #if defined(NV_DRM_HELPER_MODE_FILL_FB_STRUCT_HAS_CONST_MODE_CMD_ARG)
+     const struct drm_mode_fb_cmd2 *cmd
+     #else
+@@ -155,6 +159,10 @@
+     fb = nv_drm_internal_framebuffer_create(
+             dev,
+             file,
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(6, 17, 0)
++            // Rel. commit. "drm: Allow the caller to pass in the format info to drm_helper_mode_fill_fb_struct()" (Ville Syrjälä, 1 Jul 2025)
++            info,
++#endif
+             &local_cmd);
+ 
+     #if !defined(NV_DRM_HELPER_MODE_FILL_FB_STRUCT_HAS_CONST_MODE_CMD_ARG)
+--- a/kernel/nvidia-drm/nvidia-drm-fb.c	2024-05-02 17:50:00.000000000 +0300
++++ b/kernel/nvidia-drm/nvidia-drm-fb.c	2025-10-31 12:36:00.275565719 +0200
+@@ -33,6 +33,7 @@
+ #include "nvidia-drm-format.h"
+ 
+ #include <drm/drm_crtc_helper.h>
++#include <linux/version.h>
+ 
+ static void __nv_drm_framebuffer_free(struct nv_drm_framebuffer *nv_fb)
+ {
+@@ -184,6 +185,10 @@
+ struct drm_framebuffer *nv_drm_internal_framebuffer_create(
+     struct drm_device *dev,
+     struct drm_file *file,
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(6, 17, 0)
++    // Rel. commit. "drm: Allow the caller to pass in the format info to drm_helper_mode_fill_fb_struct()" (Ville Syrjälä, 1 Jul 2025)
++    const struct drm_format_info *info,
++#endif
+     struct drm_mode_fb_cmd2 *cmd)
+ {
+     struct nv_drm_device *nv_dev = to_nv_device(dev);
+@@ -237,6 +242,10 @@
+         dev,
+         #endif
+         &nv_fb->base,
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(6, 17, 0)
++        // Rel. commit. "drm: Allow the caller to pass in the format info to drm_helper_mode_fill_fb_struct()" (Ville Syrjälä, 1 Jul 2025)
++        info,
++#endif
+         cmd);
+ 
+     /*
+--- a/kernel/nvidia-drm/nvidia-drm-fb.h	2024-05-02 17:49:58.000000000 +0300
++++ b/kernel/nvidia-drm/nvidia-drm-fb.h	2025-10-31 12:36:00.276217157 +0200
+@@ -35,6 +35,8 @@
+ #include <drm/drm_framebuffer.h>
+ #endif
+ 
++#include <linux/version.h>
++
+ #include "nvidia-drm-gem-nvkms-memory.h"
+ #include "nvkms-kapi.h"
+ 
+@@ -59,6 +61,10 @@
+ struct drm_framebuffer *nv_drm_internal_framebuffer_create(
+     struct drm_device *dev,
+     struct drm_file *file,
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(6, 17, 0)
++    // Rel. commit. "drm: Allow the caller to pass in the format info to drm_helper_mode_fill_fb_struct()" (Ville Syrjälä, 1 Jul 2025)
++    const struct drm_format_info *info,
++#endif
+     struct drm_mode_fb_cmd2 *cmd);
+ 
+ #endif /* NV_DRM_ATOMIC_MODESET_AVAILABLE */
