@@ -55,6 +55,18 @@ If `/etc/portage/package.accept_keywords` is a directory, then create a file lik
 
 **WARNING:** The live ebuilds may break at any time. Use them only if you want to develop or alpha test XLibre.
 
+## Using The Proprietary Nvidia Driver With XLibre
+
+To use the proprietary Nvidia driver, please add the following to your X configuration, e.g., `xorg.conf`:
+
+``` config
+Section "ServerFlags"
+    Option "IgnoreABI" "1"
+EndSection
+```
+
+This forces the Nvidia driver to be loaded, even if it was compiled for a different ABI version, which is the case with XLibre. For more information, please see the [Nvidia proprietary driver](https://github.com/X11Libre/xserver/wiki/Compatibility-of-XLibre#nvidia-proprietary-driver) section of [Compatibility of XLibre · X11Libre/xserver Wiki](https://github.com/X11Libre/xserver/wiki/Compatibility-of-XLibre).
+
 ## List of X Drivers Not in the Overlay
 
 There are some older X drivers that are not packaged in Gentoo anymore.
