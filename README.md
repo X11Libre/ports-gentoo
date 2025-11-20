@@ -57,7 +57,7 @@ If `/etc/portage/package.accept_keywords` is a directory, then create a file lik
 
 ## Using The Proprietary Nvidia Driver With XLibre
 
-To use the proprietary Nvidia driver, please add the following to your X configuration, e.g., `xorg.conf`:
+To use the proprietary Nvidia driver in the XLibre Xserver up to version 25.0.0.15, please add the following to your X configuration, e.g., `xorg.conf`:
 
 ``` config
 Section "ServerFlags"
@@ -65,7 +65,7 @@ Section "ServerFlags"
 EndSection
 ```
 
-This forces the Nvidia driver to be loaded, even if it was compiled for a different ABI version, which is the case with XLibre. For more information, please see the [Nvidia proprietary driver](https://github.com/X11Libre/xserver/wiki/Compatibility-of-XLibre#nvidia-proprietary-driver) section of [Compatibility of XLibre · X11Libre/xserver Wiki](https://github.com/X11Libre/xserver/wiki/Compatibility-of-XLibre).
+Starting with version 25.0.0.16, the proprietary Nvidia driver is autodetected and handled internally without any special configuration. Please see the [Compatibility of XLibre (X11Libre/xserver Wiki)](https://github.com/X11Libre/xserver/wiki/Compatibility-of-XLibre) page for [more details on the Nvidia driver](https://github.com/X11Libre/xserver/wiki/Compatibility-of-XLibre#nvidia-proprietary-driver) and compatibility in general.
 
 ## List of X Drivers Not in the Overlay
 
