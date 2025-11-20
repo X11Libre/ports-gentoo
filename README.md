@@ -72,38 +72,7 @@ This forces the Nvidia driver to be loaded, even if it was compiled for a differ
 There are some older X drivers that are not packaged in Gentoo anymore.
 Some of them aren't packaged here as well, as we started with the Gentoo packages.
 
-These packages are:
-
-* xf86-video-apm
-* xf86-video-ark
-* xf86-video-chips
-* xf86-video-cirrus
-* xf86-video-freedreno
-* xf86-video-i128
-* xf86-video-i740
-* xf86-video-mach64
-* xf86-video-neomagic
-* xf86-video-nested
-* xf86-video-nv
-* xf86-video-omap
-* xf86-video-rendition
-* xf86-video-s3virge
-* xf86-video-savage
-* xf86-video-sis
-* xf86-video-sisusb
-* xf86-video-suncg14
-* xf86-video-suncg3
-* xf86-video-suncg6
-* xf86-video-sunffb
-* xf86-video-sunleo
-* xf86-video-suntcx
-* xf86-video-tdfx
-* xf86-video-trident
-* xf86-video-v4l
-* xf86-video-vbox
-* xf86-video-voodoo
-* xf86-video-wsfb
-* xf86-video-xgi
+These are: [xf86-video-apm](https://github.com/X11Libre/xf86-video-apm), [xf86-video-ark](https://github.com/X11Libre/xf86-video-ark), [xf86-video-chips](https://github.com/X11Libre/xf86-video-chips), [xf86-video-cirrus](https://github.com/X11Libre/xf86-video-cirrus), [xf86-video-freedreno](https://github.com/X11Libre/xf86-video-freedreno), [xf86-video-i128](https://github.com/X11Libre/xf86-video-i128), [xf86-video-i740](https://github.com/X11Libre/xf86-video-i740), [xf86-video-mach64](https://github.com/X11Libre/xf86-video-mach64), [xf86-video-neomagic](https://github.com/X11Libre/xf86-video-neomagic), [xf86-video-nested](https://github.com/X11Libre/xf86-video-nested), [xf86-video-nv](https://github.com/X11Libre/xf86-video-nv), [xf86-video-omap](https://github.com/X11Libre/xf86-video-omap), [xf86-video-rendition](https://github.com/X11Libre/xf86-video-rendition), [xf86-video-s3virge](https://github.com/X11Libre/xf86-video-s3virge), [xf86-video-savage](https://github.com/X11Libre/xf86-video-savage), [xf86-video-sis](https://github.com/X11Libre/xf86-video-sis), [xf86-video-sisusb](https://github.com/X11Libre/xf86-video-sisusb), [xf86-video-suncg14](https://github.com/X11Libre/xf86-video-suncg14), [xf86-video-suncg3](https://github.com/X11Libre/xf86-video-suncg3), [xf86-video-suncg6](https://github.com/X11Libre/xf86-video-suncg6), [xf86-video-sunffb](https://github.com/X11Libre/xf86-video-sunffb), [xf86-video-sunleo](https://github.com/X11Libre/xf86-video-sunleo), [xf86-video-suntcx](https://github.com/X11Libre/xf86-video-suntcx), [xf86-video-tdfx](https://github.com/X11Libre/xf86-video-tdfx), [xf86-video-trident](https://github.com/X11Libre/xf86-video-trident), [xf86-video-v4l](https://github.com/X11Libre/xf86-video-v4l), [xf86-video-vbox](https://github.com/X11Libre/xf86-video-vbox), [xf86-video-voodoo](https://github.com/X11Libre/xf86-video-voodoo), [xf86-video-wsfb](https://github.com/X11Libre/xf86-video-wsfb), and [xf86-video-xgi](https://github.com/X11Libre/xf86-video-xgi).
 
 If you are using any hardware that requires one of the above drivers, then don't hesitate and [open an issue](https://github.com/X11Libre/ports-gentoo/issues). We will see what we can do.
 
