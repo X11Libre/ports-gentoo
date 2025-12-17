@@ -16,7 +16,7 @@ if [[ ${PV} != 9999* ]]; then
 fi
 
 IUSE_SERVERS="xephyr xfbdev xnest xorg xvfb"
-IUSE_EXTENSIONS="xcsecurity +xinerama +glx"
+IUSE_EXTENSIONS="xcsecurity +xinerama +glx +glx-dri"
 IUSE="${IUSE_SERVERS} ${IUSE_EXTENSIONS} debug +elogind minimal selinux suid systemd test +udev unwind"
 RESTRICT="!test? ( test )"
 
@@ -52,8 +52,12 @@ CDEPEND="
 		x11-libs/xcb-util-renderutil
 		x11-libs/xcb-util-wm
 	)
+	glx-dri? ( >=media-libs/mesa-18[X(+),egl(+),gbm(+)] )
 	!minimal? (
-		>=media-libs/mesa-18[X(+),egl(+),gbm(+)]
+		|| (
+			media-libs/libgbm
+			>=media-libs/mesa-18[X(+),egl(+),gbm(+)]
+		)
 		>=media-libs/libepoxy-1.5.4[X,egl(+)]
 	)
 	udev? ( virtual/libudev:= )
@@ -93,7 +97,8 @@ REQUIRED_USE="!minimal? (
 		|| ( ${IUSE_SERVERS} )
 	)
 	elogind? ( udev )
-	?? ( elogind systemd )"
+	?? ( elogind systemd )
+	glx-dri? ( glx )"
 
 
 src_configure() {
@@ -115,6 +120,7 @@ src_configure() {
 		$(meson_use !minimal dri3)
 		$(meson_use !minimal glamor)
 		$(meson_use glx)
+		$(meson_use glx-dri glx_dri)
 		$(meson_use udev)
 		$(meson_use udev udev_kms)
 		$(meson_use unwind libunwind)
