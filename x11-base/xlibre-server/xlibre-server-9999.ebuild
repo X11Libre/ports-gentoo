@@ -17,7 +17,7 @@ fi
 
 IUSE_SERVERS="xephyr xfbdev xnest xorg xvfb"
 IUSE_EXTENSIONS="xcsecurity +xinerama +glx +glx-dri"
-IUSE="${IUSE_SERVERS} ${IUSE_EXTENSIONS} debug +elogind minimal selinux suid systemd test +udev unwind"
+IUSE="${IUSE_SERVERS} ${IUSE_EXTENSIONS} debug +elogind minimal seatd selinux suid systemd test +udev unwind"
 RESTRICT="!test? ( test )"
 
 CDEPEND="
@@ -62,6 +62,7 @@ CDEPEND="
 	)
 	udev? ( virtual/libudev:= )
 	unwind? ( sys-libs/libunwind:= )
+	seatd? ( >=sys-auth/seatd-0.9.1 )
 	selinux? (
 		sys-process/audit
 		sys-libs/libselinux:=
@@ -97,7 +98,7 @@ REQUIRED_USE="!minimal? (
 		|| ( ${IUSE_SERVERS} )
 	)
 	elogind? ( udev )
-	?? ( elogind systemd )
+	?? ( elogind seatd systemd )
 	glx-dri? ( glx )"
 
 
@@ -125,6 +126,7 @@ src_configure() {
 		$(meson_use udev udev_kms)
 		$(meson_use unwind libunwind)
 		$(meson_use xcsecurity)
+		$(meson_use seatd seatd_libseat)
 		$(meson_use selinux xselinux)
 		$(meson_use xephyr)
 		$(meson_use xfbdev)
@@ -164,7 +166,7 @@ src_install() {
 	meson_src_install
 
 	# The meson build system does not support install-setuid
-	if ! use systemd && ! use elogind; then
+	if ! use elogind && ! use seatd && ! use systemd; then
 		if use suid; then
 			chmod u+s "${ED}"/usr/bin/Xorg
 		fi
@@ -186,7 +188,12 @@ src_install() {
 	# install the @x11-module-rebuild set for Portage
 	insinto /usr/share/portage/config/sets
 	newins "${FILESDIR}"/xlibre-sets.conf xlibre.conf
+}
 
+pkg_postinst() {
+	if use seatd; then
+		einfo "You may want to add '-keeptty' to your X server startup options to make use of seatd."
+	fi
 	ewarn "If this is the first time you installed xlibre, you have to emerge @x11-module-rebuild"
 }
 
