@@ -15,7 +15,7 @@ fi
 
 IUSE_SERVERS="xephyr xfbdev xnest xorg xvfb"
 IUSE_EXTENSIONS="xcsecurity +xinerama +glx"
-IUSE="${IUSE_SERVERS} ${IUSE_EXTENSIONS} debug +elogind minimal selinux suid systemd test +udev unwind"
+IUSE="${IUSE_SERVERS} ${IUSE_EXTENSIONS} debug +elogind minimal seatd selinux suid systemd test +udev unwind"
 RESTRICT="!test? ( test )"
 
-DEPEND="x11-base/xlibre-server:${SLOT}[xephyr=,xfbdev=,xnest=,xorg=,xvfb=,debug=,elogind=,glx=,minimal=,selinux=,suid=,systemd=,test=,udev=,unwind=,xcsecurity=,xinerama=]"
+DEPEND="x11-base/xlibre-server:${SLOT}[xephyr=,xfbdev=,xnest=,xorg=,xvfb=,debug=,elogind=,glx=,minimal=,seatd=,selinux=,suid=,systemd=,test=,udev=,unwind=,xcsecurity=,xinerama=]"
