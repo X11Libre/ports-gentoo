@@ -1,0 +1,205 @@
+# Copyright 1999-2025 Gentoo Authors
+# Distributed under the terms of the GNU General Public License v2
+
+EAPI=8
+
+XLIBRE_EAUTORECONF="no"
+
+inherit flag-o-matic xlibre-meson
+EGIT_REPO_URI="https://github.com/X11Libre/xserver.git"
+
+DESCRIPTION="XLibre X servers"
+HOMEPAGE="https://github.com/X11Libre/xserver"
+SLOT="0/${PV}"
+if [[ ${PV} != 9999* ]]; then
+	KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~loong ~m68k ~mips ~ppc ~ppc64 ~riscv ~s390 ~sparc ~x86 ~amd64-linux ~x86-linux"
+fi
+
+IUSE_SERVERS="xephyr xfbdev xnest xorg xvfb"
+IUSE_EXTENSIONS="xcsecurity +xinerama +glx +glx-dri"
+IUSE="${IUSE_SERVERS} ${IUSE_EXTENSIONS} debug +elogind minimal seatd selinux suid systemd test +udev unwind"
+RESTRICT="!test? ( test )"
+
+CDEPEND="
+	media-libs/libglvnd[X]
+	dev-libs/libbsd
+	dev-libs/openssl:0=
+	>=x11-apps/iceauth-1.0.2
+	>=x11-apps/xauth-1.0.3
+	x11-apps/xkbcomp
+	>=x11-libs/libdrm-2.4.89
+	>=x11-libs/libpciaccess-0.12.901
+	>=x11-libs/libXau-1.0.4
+	>=x11-libs/libXdmcp-1.0.2
+	>=x11-libs/libXfont2-2.0.1
+	>=x11-libs/libxkbfile-1.0.4
+	>=x11-libs/libxshmfence-1.1
+	>=x11-libs/pixman-0.27.2
+	>=x11-misc/xbitmaps-1.0.1
+	>=x11-misc/xkeyboard-config-2.4.1-r3
+	xorg? (
+		>=x11-libs/libxcvt-0.1.0
+	)
+	xnest? (
+		>=x11-libs/libXext-1.0.99.4
+		>=x11-libs/libX11-1.1.5
+	)
+	xephyr? (
+		x11-libs/libxcb
+		x11-libs/xcb-util
+		x11-libs/xcb-util-image
+		x11-libs/xcb-util-keysyms
+		x11-libs/xcb-util-renderutil
+		x11-libs/xcb-util-wm
+	)
+	glx-dri? ( >=media-libs/mesa-18[X(+),egl(+),gbm(+)] )
+	!minimal? (
+		|| (
+			media-libs/libgbm
+			>=media-libs/mesa-18[X(+),egl(+),gbm(+)]
+		)
+		>=media-libs/libepoxy-1.5.4[X,egl(+)]
+	)
+	udev? ( virtual/libudev:= )
+	unwind? ( sys-libs/libunwind:= )
+	seatd? ( >=sys-auth/seatd-0.9.1 )
+	selinux? (
+		sys-process/audit
+		sys-libs/libselinux:=
+	)
+	systemd? (
+		sys-apps/dbus
+		sys-apps/systemd
+	)
+	elogind? (
+		sys-apps/dbus
+		sys-auth/elogind[pam]
+		sys-auth/pambase[elogind]
+	)
+	!!x11-drivers/nvidia-drivers[-libglvnd(+)]
+"
+DEPEND="${CDEPEND}
+	>=x11-base/xorg-proto-2024.1
+	media-fonts/font-util
+	test? ( >=x11-libs/libxcvt-0.1.0 )
+"
+RDEPEND="${CDEPEND}
+	!systemd? ( gui-libs/display-manager-init )
+	selinux? ( sec-policy/selinux-xserver )
+	xorg? ( >=x11-apps/xinit-1.3.3-r1 )
+"
+BDEPEND="
+	app-alternatives/lex
+"
+PDEPEND="
+	xorg? ( >=x11-base/xlibre-drivers-$(ver_cut 1-2) )"
+
+REQUIRED_USE="!minimal? (
+		|| ( ${IUSE_SERVERS} )
+	)
+	elogind? ( udev )
+	?? ( elogind seatd systemd )
+	glx-dri? ( glx )"
+
+
+src_configure() {
+	# bug #835653
+	use x86 && replace-flags -Os -O2
+	use x86 && replace-flags -Oz -O2
+
+	use debug && EMESON_BUILDTYPE=debug
+
+	# localstatedir is used for the log location; we need to override the default
+	#	from ebuild.sh
+	# sysconfdir is used for the xorg.conf location; same applies
+	local emesonargs=(
+		--localstatedir "${EPREFIX}/var"
+		--sysconfdir "${EPREFIX}/etc/X11"
+		-Db_ndebug=$(usex debug false true)
+		$(meson_use !minimal dri1)
+		$(meson_use !minimal dri2)
+		$(meson_use !minimal dri3)
+		$(meson_use !minimal glamor)
+		$(meson_use glx)
+		$(meson_use glx-dri glx_dri)
+		$(meson_use udev)
+		$(meson_use udev udev_kms)
+		$(meson_use unwind libunwind)
+		$(meson_use xcsecurity)
+		$(meson_use seatd seatd_libseat)
+		$(meson_use selinux xselinux)
+		$(meson_use xephyr)
+		$(meson_use xfbdev)
+		$(meson_use xinerama)
+		$(meson_use xnest)
+		$(meson_use xorg)
+		$(meson_use xvfb)
+		$(meson_use test tests)
+		$(meson_use test xf86-input-inputtest)
+		-Ddocs=false
+		-Ddrm=true
+		-Ddtrace=false
+		-Dipv6=true
+		-Dhal=false
+		-Dlinux_acpi=false
+		-Dlinux_apm=false
+		-Dsha1=libcrypto
+		-Dxkb_output_dir="${EPREFIX}/var/lib/xkb"
+	)
+
+	if use systemd || use elogind; then
+		emesonargs+=(
+			-Dsystemd_logind=true
+			$(meson_use suid suid_wrapper)
+		)
+	else
+		emesonargs+=(
+			-Dsystemd_logind=false
+			-Dsuid_wrapper=false
+		)
+	fi
+
+	meson_src_configure
+}
+
+src_install() {
+	meson_src_install
+
+	# The meson build system does not support install-setuid
+	if ! use elogind && ! use seatd && ! use systemd; then
+		if use suid; then
+			chmod u+s "${ED}"/usr/bin/Xorg
+		fi
+	fi
+
+	# Xfbdev should always be installed suid
+	if use xfbdev; then
+		chmod 4755 "${ED}"/usr/bin/Xfbdev
+	fi
+
+
+	if ! use xorg; then
+		rm -f "${ED}"/usr/share/man/man1/Xserver.1x \
+			"${ED}"/usr/$(get_libdir)/xserver/SecurityPolicy \
+			"${ED}"/usr/$(get_libdir)/pkgconfig/xorg-server.pc \
+			"${ED}"/usr/share/man/man1/Xserver.1x || die
+	fi
+
+	# install the @x11-module-rebuild set for Portage
+	insinto /usr/share/portage/config/sets
+	newins "${FILESDIR}"/xlibre-sets.conf xlibre.conf
+}
+
+pkg_postinst() {
+	if use seatd; then
+		einfo "You may want to add '-keeptty' to your X server startup options to make use of seatd."
+	fi
+	ewarn "If this is the first time you installed xlibre, you have to emerge @x11-module-rebuild"
+}
+
+pkg_postrm() {
+	# Get rid of module dir to ensure opengl-update works properly
+	if [[ -z ${REPLACED_BY_VERSION} && -e ${EROOT}/usr/$(get_libdir)/xorg/modules ]]; then
+		rm -rf "${EROOT}"/usr/$(get_libdir)/xorg/modules
+	fi
+}
