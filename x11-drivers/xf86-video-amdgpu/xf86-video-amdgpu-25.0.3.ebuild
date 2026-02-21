@@ -24,7 +24,6 @@ DEPEND="${RDEPEND}"
 
 src_configure() {
 	local XLIBRE_CONFIGURE_OPTIONS=(
-		--enable-glamor
 		$(use_enable udev)
 	)
 	xlibre_src_configure
