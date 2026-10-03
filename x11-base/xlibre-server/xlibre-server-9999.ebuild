@@ -15,7 +15,7 @@ if [[ ${PV} != 9999* ]]; then
 	KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~loong ~m68k ~mips ~ppc ~ppc64 ~riscv ~s390 ~sparc ~x86 ~amd64-linux ~x86-linux"
 fi
 
-IUSE_SERVERS="xephyr xfbdev xnest xorg xvfb"
+IUSE_SERVERS="xephyr xfake xfbdev xmodesetting xnest xorg xvfb"
 IUSE_EXTENSIONS="xcsecurity +xinerama +glx +glx-dri"
 IUSE="${IUSE_SERVERS} ${IUSE_EXTENSIONS} debug +elogind +gbm minimal seatd selinux suid systemd test +udev unwind"
 RESTRICT="!test? ( test )"
@@ -131,8 +131,10 @@ src_configure() {
 		$(meson_use seatd seatd_libseat)
 		$(meson_use selinux xselinux)
 		$(meson_use xephyr)
+		$(meson_use xfake)
 		$(meson_use xfbdev)
 		$(meson_use xinerama)
+		$(meson_use xmodesetting)
 		$(meson_use xnest)
 		$(meson_use xorg)
 		$(meson_use xvfb)

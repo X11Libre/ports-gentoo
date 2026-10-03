@@ -13,9 +13,9 @@ if [[ ${PV} != 9999* ]]; then
 	KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~loong ~m68k ~mips ~ppc ~ppc64 ~riscv ~s390 ~sparc ~x86 ~amd64-linux ~x86-linux"
 fi
 
-IUSE_SERVERS="xephyr xfbdev xnest xorg xvfb"
+IUSE_SERVERS="xephyr xfake xfbdev xmodesetting xnest xorg xvfb"
 IUSE_EXTENSIONS="xcsecurity +xinerama +glx +glx-dri"
 IUSE="${IUSE_SERVERS} ${IUSE_EXTENSIONS} debug +elogind +gbm minimal seatd selinux suid systemd test +udev unwind"
 RESTRICT="!test? ( test )"
 
-DEPEND="x11-base/xlibre-server:${SLOT}[xephyr=,xfbdev=,xnest=,xorg=,xvfb=,debug=,elogind=,glx=,glx-dri=,gbm=,minimal=,seatd=,selinux=,suid=,systemd=,test=,udev=,unwind=,xcsecurity=,xinerama=]"
+DEPEND="x11-base/xlibre-server:${SLOT}[xephyr=,xfake=,xfbdev=,xmodesetting=,xnest=,xorg=,xvfb=,debug=,elogind=,glx=,glx-dri=,gbm=,minimal=,seatd=,selinux=,suid=,systemd=,test=,udev=,unwind=,xcsecurity=,xinerama=]"
