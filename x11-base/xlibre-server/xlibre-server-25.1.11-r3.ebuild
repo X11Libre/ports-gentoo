@@ -101,6 +101,10 @@ REQUIRED_USE="!minimal? (
 	?? ( elogind seatd systemd )
 	glx-dri? ( glx )"
 
+PATCHES=(
+	"${FILESDIR}/${P}-revert-link-libxserver_glx.patch"
+	"${FILESDIR}/${P}-damage-fix-abi.patch.patch"
+)
 
 src_configure() {
 	# bug #835653
