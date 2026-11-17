@@ -96,6 +96,11 @@ PATCHES=(
 	"${FILESDIR}"/nvidia-470-aur-patches/008-nvidia-470xx-fix-linux-6.19-part1.patch
 	"${FILESDIR}"/nvidia-470-aur-patches/009-nvidia-470xx-fix-linux-6.19-part2.patch
 	"${FILESDIR}"/nvidia-470-aur-patches/010-nvidia-470xx-fix-linux-7.0.patch
+	"${FILESDIR}"/nvidia-470-aur-patches/nvidia-470xx-fix-linux-7.2-part1.patch
+	"${FILESDIR}"/nvidia-470-aur-patches/nvidia-470xx-fix-linux-7.2-part2.patch
+	"${FILESDIR}"/nvidia-470-aur-patches/nvidia-470xx-fix-linux-7.2-part3.patch
+	"${FILESDIR}"/nvidia-470-aur-patches/nvidia-470xx-fix-linux-7.3.patch
+
 )
 
 pkg_setup() {

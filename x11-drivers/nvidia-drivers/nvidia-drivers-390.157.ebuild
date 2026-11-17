@@ -107,6 +107,7 @@ PATCHES=(
 	"${FILESDIR}"/nvidia-390-aur-patches/017-nvidia-390xx-kernel-6.19.patch
 	"${FILESDIR}"/nvidia-390-aur-patches/018-nvidia-390xx-fence-signal.patch
 	"${FILESDIR}"/nvidia-390-aur-patches/019-nvidia-390xx-screen-info.patch
+	"${FILESDIR}"/nvidia-390-aur-patches/kernel-7.2.patch
 )
 
 pkg_setup() {
